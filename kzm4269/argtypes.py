@@ -68,13 +68,13 @@ def path_type(
     'foo/bar'
     >>> path_type('f', as_rel='foo')('foo/bar')
     'bar'
-    >>> os.chdir(os.path.dirname(tempd.name))
+    >>> tempd.cleanup()
     """
     if types or modes:
         exists = True
 
-    @wrap_exc(ArgumentTypeError, OSError)
-    @wrap_exc(RuntimeError, TypeError)
+    @wrap_exc(OSError, by=ArgumentTypeError)
+    @wrap_exc(TypeError, by=RuntimeError)
     def parse(path):
         if makedirs:
             os.makedirs(
