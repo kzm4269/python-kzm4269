@@ -2,7 +2,7 @@ import functools as ft
 
 import tensorflow as tf
 
-from ..subgraph import layer_type, StaticGraph
+from kzm4269.tf_utils.subgraph import layer_type, StaticGraph
 
 
 def custom_object_scope():

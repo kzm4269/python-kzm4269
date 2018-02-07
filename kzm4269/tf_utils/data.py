@@ -1,7 +1,7 @@
 import tensorflow as tf
 
-from .session import require_session
-from .. import h5_utils
+from kzm4269 import h5_utils
+from kzm4269.tf_utils.session import require_session
 
 
 def iter_dataset(src, sess=None):

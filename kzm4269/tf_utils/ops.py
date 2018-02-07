@@ -4,7 +4,7 @@ from subprocess import check_output
 import numpy as np
 import tensorflow as tf
 
-from .. import np_utils as npu
+from kzm4269 import np_utils as npu
 
 
 def nonbusy_device(use_cpu=False):
