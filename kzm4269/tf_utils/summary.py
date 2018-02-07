@@ -6,7 +6,7 @@ import tensorflow as tf
 
 def temp_logdir(root=None, name=None):
     if root is None:
-        root = os.path.join(os.environ['HOME'], 'tmp', 'tensorboard')
+        root = os.path.join(os.path.expanduser('~'), 'tmp', 'tensorboard')
     if name is None:
         name = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     return os.path.join(root, name)
