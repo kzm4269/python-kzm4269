@@ -113,6 +113,7 @@ class DegreeLocator(plt.Locator):
     >>> plt.grid()
     >>> plt.show()
     """
+
     def __init__(self, bases=(360, 180, 90, 45, 30, 15), min_n_ticks=4):
         bases = np.array(bases)
         ranges = bases * min_n_ticks

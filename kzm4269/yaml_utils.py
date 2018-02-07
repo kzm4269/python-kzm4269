@@ -76,5 +76,8 @@ def pprint(data, default=None):
     _Dumper.add_representer(dict, represent_ordereddict)
 
     if default is not None:
-        data = json.loads(json.dumps(data, default=default, ensure_ascii=False))
+        data = json.loads(json.dumps(
+            data,
+            default=default,
+            ensure_ascii=False))
     print(yaml.dump(data, width=10000, allow_unicode=True, Dumper=_Dumper))

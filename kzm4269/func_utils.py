@@ -1,6 +1,6 @@
 """Utilities for functools"""
-import inspect
 import functools as ft
+import inspect
 
 
 def nonstrict_partial(func, *args, **kwargs):

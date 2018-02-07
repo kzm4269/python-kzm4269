@@ -5,8 +5,8 @@ import logging
 import textwrap
 from datetime import datetime
 
-from dateutil.tz import tzlocal
 import yaml
+from dateutil.tz import tzlocal
 
 from . import yaml_utils, logging_utils
 
