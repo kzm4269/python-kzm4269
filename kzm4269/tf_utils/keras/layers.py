@@ -41,7 +41,7 @@ def normalized(layer):
             activation_ = through()
 
         if 'use_bias' not in kwargs:
-            kwargs['use_bias'] = bool(normalization)
+            kwargs['use_bias'] = not bool(normalization)
 
         layer_ = layer(*args, **kwargs)
 
