@@ -4,8 +4,7 @@ from collections import defaultdict
 
 import numpy as np
 import tensorflow as tf
-# noinspection PyProtectedMember
-from tensorflow.python.keras._impl.keras.callbacks import CallbackList
+from tensorflow.python.keras.callbacks import CallbackList
 
 
 class BatchCounter(tf.keras.callbacks.Callback):

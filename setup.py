@@ -14,7 +14,7 @@ with open('LICENSE') as f:
 
 setup(
     name='kzm4269',
-    version='0.0',
+    version='0.0.0a1',
     description="kzm4269's Python utilities",
     long_description=README,
     author='kzm4269',
