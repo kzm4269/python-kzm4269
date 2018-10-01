@@ -80,6 +80,7 @@ def camel_to_snake(text):
     >>> camel_to_snake('HTTPServer')
     'http_server'
     >>> camel_to_snake('')
+    ''
     """
     text = re.sub(r'(.)([A-Z][a-z]+)', r'\1_\2', text)
     return re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', text).lower()

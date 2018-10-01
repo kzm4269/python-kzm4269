@@ -1,7 +1,7 @@
 import h5py
 import numpy as np
 
-from .. import misc
+from kzm4269 import misc
 
 __all__ = [
     'require_extendible_dataset',

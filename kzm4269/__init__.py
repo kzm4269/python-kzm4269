@@ -1,8 +1,8 @@
 from . import (
-    contextlib,
-    functools,
-    io,
-    logging,
-    os,
-    string,
+    contextlib_,
+    functools_,
+    io_,
+    logging_,
+    os_,
+    string_,
 )

@@ -1,4 +1,3 @@
-"""Utilities for SymPy"""
 import functools as ft
 
 import numpy as np

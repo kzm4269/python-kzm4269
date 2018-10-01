@@ -1,7 +1,7 @@
 import tensorflow as tf
 
-from .session import require_session
-from .. import h5py as h5py_utils
+from kzm4269.extra import h5py_
+from kzm4269.extra.tensorflow_.session import require_session
 
 __all__ = [
     'iter_dataset',
@@ -33,7 +33,7 @@ def dataset_from_hdf5(src):
     dst : tf.data.Dataset
     """
     dst = tf.data.Dataset.from_generator(
-        generator=lambda: ((c,) for c in h5py_utils.iter_chunks(src)),
+        generator=lambda: ((c,) for c in h5py_.iter_chunks(src)),
         output_types=(tf.as_dtype(src.dtype),),
         output_shapes=((None,) + src.shape[1:],),
     )

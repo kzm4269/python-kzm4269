@@ -2,7 +2,7 @@ import functools as ft
 
 import tensorflow as tf
 
-from ..subgraph import unique_layer_name
+from kzm4269.extra.tensorflow_.subgraph import unique_layer_name
 
 __all__ = [
     'set_trainable',

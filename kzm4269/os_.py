@@ -73,14 +73,6 @@ def temp_chdir(path):
     Returns
     -------
     path : path_like
-
-    Examples
-    --------
-    >>> with temp_chdir('/home') as cwd:
-    ...    print(cwd)
-    ...    print(os.path.abspath(os.getcwd()))
-    /home
-    /home
     """
     backup = os.path.abspath(os.curdir)
     try:

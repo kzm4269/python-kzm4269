@@ -21,7 +21,7 @@ def wrap_exc(of=None, by=None):
     >>> with wrap_exc(by=ValueError):
     ...     raise Exception('hello')
     Traceback (most recent call last):
-    ...
+        ...
     ValueError: hello
     >>> @wrap_exc(of=TypeError, by=ValueError)
     ... def f():
@@ -29,7 +29,7 @@ def wrap_exc(of=None, by=None):
     ...
     >>> f()
     Traceback (most recent call last):
-    ...
+        ...
     ValueError
     """
     if of is None:

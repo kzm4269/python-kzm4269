@@ -32,21 +32,21 @@ def uniform_on_sphere(dim=2, size=None):
     >>> np.random.seed(0)
     >>> p = uniform_on_sphere()
     >>> p
-    array([ 0.97522402,  0.22121958])
-    >>> np.linalg.norm(p)
-    1.0
+    array([0.97522402, 0.22121958])
+    >>> np.isclose(np.linalg.norm(p), 1.0)
+    True
     >>> p = uniform_on_sphere(dim=3)
     >>> p
-    array([ 0.31809241,  0.72829615,  0.60696123])
-    >>> np.linalg.norm(p)
-    0.99999999999999989
+    array([0.31809241, 0.72829615, 0.60696123])
+    >>> np.isclose(np.linalg.norm(p), 1.0)
+    True
     >>> p = uniform_on_sphere(dim=2, size=3)
     >>> p
     array([[-0.71701063,  0.69706223],
            [-0.82617461, -0.56341416],
            [ 0.9436187 ,  0.33103435]])
-    >>> np.linalg.norm(p, axis=-1)
-    array([ 1.,  1.,  1.])
+    >>> np.isclose(np.linalg.norm(p, axis=-1), 1.0).all()
+    True
     """
     if isinstance(size, int):
         size = size,
@@ -78,10 +78,8 @@ def random_orthogonal(dim):
     array([[-0.58684003,  0.48538278, -0.6480913 ],
            [-0.74546871, -0.63631164,  0.19845377],
            [-0.316062  ,  0.5995924 ,  0.73525082]])
-    >>> m.T @ m - np.eye(3)
-    array([[ -4.44089210e-16,   3.86008230e-17,  -9.37643276e-17],
-           [  3.86008230e-17,  -2.22044605e-16,   1.25667846e-17],
-           [ -9.37643276e-17,   1.25667846e-17,   0.00000000e+00]])
+    >>> np.isclose(m.T @ m, np.eye(3)).all()
+    True
     """
     return np.linalg.qr(np.random.randn(dim, dim))[0]
 
@@ -105,8 +103,8 @@ def random_symetric(eigvals):
     array([[ 2.07564112, -0.56608704, -0.66198749],
            [-0.56608704,  1.4836603 , -0.08970104],
            [-0.66198749, -0.08970104,  2.44069858]])
-    >>> np.linalg.eigvals(m)
-    array([ 1.,  3.,  2.])
+    >>> np.isclose(np.sort(np.linalg.eigvals(m)), [1, 2, 3]).all()
+    True
     """
     eigvals = np.array(eigvals, copy=False, ndmin=1)
     u = random_orthogonal(eigvals.size)
@@ -123,25 +121,31 @@ def batches(*args, batch_size=None):
     (array([0, 1]), array([5, 6]), 11)
     (array([2, 3]), array([7, 8]), 11)
     (array([4]), array([9]), 11)
-
     >>> for b in batches(1, [2, 3, 4], [5, 6]):
     ...     print(b)
     (1, [2, 3], [5, 6])
-
     >>> list(batches(1, 2, 3))
     [(1, 2, 3)]
     """
     args = tuple(args)
-    if all(np.isscalar(arg) for arg in args):
+    if all([np.isscalar(arg) for arg in args]):
         return iter([args])
-    total = min(len(arg) for arg in args if not np.isscalar(arg))
+    total = min(
+        len(arg)
+        for arg in args
+        if not np.isscalar(arg)
+    )
     if batch_size is None:
         batch_size = total
     return zip(*(
-        it.repeat(arg) if np.isscalar(arg)
-        else [arg[:total][i:i + batch_size]
-              for i in range(0, len(arg), batch_size)]
-        for arg in args))
+        it.repeat(arg)
+        if np.isscalar(arg) else
+        [
+            arg[i:min(i + batch_size, total)]
+            for i in range(0, len(arg), batch_size)
+        ]
+        for arg in args
+    ))
 
 
 def slices(ndims, replace=None, default=None):

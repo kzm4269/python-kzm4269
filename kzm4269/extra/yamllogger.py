@@ -6,8 +6,8 @@ from datetime import datetime
 
 import yaml
 
-from . import yaml as yaml_utils
-from ..logging import fmt_fields
+from kzm4269.extra import yaml_
+from kzm4269.logging_ import fmt_fields
 
 
 class YamlFormatterBase(logging.Formatter, metaclass=abc.ABCMeta):
@@ -47,7 +47,7 @@ class YamlFormatter(YamlFormatterBase):
         super().__init__(fmt=fmt, datefmt=datefmt, style=style, **kwargs)
 
     def format_field(self, record, field):
-        return yaml_utils.dump_singleline(
+        return yaml_.dump_singleline(
             data=getattr(record, field),
             Dumper=self.Dumper,
             allow_unicode=True)
@@ -59,7 +59,7 @@ class YamlFormatter(YamlFormatterBase):
         class Dumper(self.Dumper):
             pass
 
-        Dumper.add_representer(str, yaml_utils.represent_multiline_text)
+        Dumper.add_representer(str, yaml_.represent_multiline_text)
         return yaml.dump(
             data=data,
             Dumper=Dumper,
@@ -69,7 +69,7 @@ class YamlFormatter(YamlFormatterBase):
 
 class SinglelineYamlFormatter(YamlFormatter):
     def dump_yaml(self, data):
-        return '--- ' + yaml_utils.dump_singleline(
+        return '--- ' + yaml_.dump_singleline(
             data=data,
             Dumper=self.Dumper,
             allow_unicode=True)

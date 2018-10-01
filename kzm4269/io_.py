@@ -10,6 +10,7 @@ __all__ = [
 @contextmanager
 def open_r(path, open_func=open, mode='r', arg_name='src', **kwargs):
     """Open a file to read.
+
     If a file object is given, return it as is.
     """
     try:
@@ -35,6 +36,7 @@ def open_r(path, open_func=open, mode='r', arg_name='src', **kwargs):
 @contextmanager
 def open_w(path, open_func=open, mode='w', **kwargs):
     """Open a file to write.
+
     If a file object is given, return it as is.
     """
     try:

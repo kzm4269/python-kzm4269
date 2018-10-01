@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 
-from .. import numpy as npu
+from kzm4269.extra import numpy_ as np_
 
 __all__ = [
     'actual_shape',
@@ -76,8 +76,8 @@ def diff(inputs, axis=-1, name=None):
     with tf.name_scope(name, 'diff', [inputs, axis]):
         inputs = tf.convert_to_tensor(inputs)
         ndims = len(inputs.shape)
-        inputs0 = inputs[npu.slices(ndims, {axis: np.s_[:-1]})]
-        inputs1 = inputs[npu.slices(ndims, {axis: np.s_[1:]})]
+        inputs0 = inputs[np_.slices(ndims, {axis: np.s_[:-1]})]
+        inputs1 = inputs[np_.slices(ndims, {axis: np.s_[1:]})]
         return inputs1 - inputs0
 
 
@@ -89,7 +89,7 @@ def _diff_recursively(
             x = tf.constant(1, dtype=y.dtype)
         x = tf.convert_to_tensor(x, dtype=tf.float32)
         if len(x.shape) > 0:
-            x = tf.reshape(x, npu.slices(len(y.shape), {axis: -1}, default=1))
+            x = tf.reshape(x, np_.slices(len(y.shape), {axis: -1}, default=1))
 
         y_shape = actual_shape(y)
         y_ndims = len(y_shape)
@@ -101,14 +101,14 @@ def _diff_recursively(
 
         def body(i, res):
             with tf.name_scope('body'):
-                tail = res[npu.slices(y_ndims, {axis: np.s_[i - 1:]})]
+                tail = res[np_.slices(y_ndims, {axis: np.s_[i - 1:]})]
 
-                head0 = res[npu.slices(y_ndims, {axis: np.s_[:i - 1]})]
-                head1 = res[npu.slices(y_ndims, {axis: np.s_[1:i]})]
+                head0 = res[np_.slices(y_ndims, {axis: np.s_[:i - 1]})]
+                head1 = res[np_.slices(y_ndims, {axis: np.s_[1:i]})]
                 if len(x.shape) == 0:
                     dx0 = dx
                 else:
-                    dx0 = dx[npu.slices(y_ndims, {axis: np.s_[:i - 1]})]
+                    dx0 = dx[np_.slices(y_ndims, {axis: np.s_[:i - 1]})]
 
                 if inverse:
                     head = head1 - head0 * dx0
