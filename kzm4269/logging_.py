@@ -28,19 +28,19 @@ def extend_record_factory(**attr_dict):
     ...     ),
     ...     levelchar=lambda r: (
     ...         'C' if r.levelno >= logging.CRITICAL else
+    ...         'F' if r.levelno >= logging.FATAL else
     ...         'E' if r.levelno >= logging.ERROR else
     ...         'W' if r.levelno >= logging.WARNING else
     ...         'I' if r.levelno >= logging.INFO else
     ...         'D' if r.levelno >= logging.DEBUG else
-    ...         'V'
+    ...         'N'  # None
     ...     ),
     ...     levelcolor=lambda r: (
-    ...         1 if r.levelno >= logging.CRITICAL else
     ...         1 if r.levelno >= logging.ERROR else
     ...         3 if r.levelno >= logging.WARNING else
-    ...         6 if r.levelno >= logging.INFO else
+    ...         2 if r.levelno >= logging.INFO else
     ...         5 if r.levelno >= logging.DEBUG else
-    ...         7
+    ...         0
     ...     ),
     ... )
     >>> logging.basicConfig(
