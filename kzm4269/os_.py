@@ -19,7 +19,7 @@ def _return_fspath(f):
     def wrapper(*args, **kwargs):
         path = f(*args, **kwargs)
         if isinstance(path, generator_iterator):
-            return map(os.fspath, path)
+            return (os.fspath(p) for p in path)
         else:
             return os.fspath(path)
 
