@@ -8,20 +8,11 @@ from collections import namedtuple
 from urllib.request import urlopen
 
 __all__ = [
-    'import_module_from_file_location',
     'import_stdlib',
     'import_submodules',
     'reload_submodules',
     'stdlib_modules',
 ]
-
-
-def import_module_from_file_location(name, location=None):
-    """Import a module based on a file location."""
-    spec = importlib.util.spec_from_file_location(name, location=location)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
 
 
 def import_submodules(
