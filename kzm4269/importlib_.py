@@ -11,6 +11,7 @@ from importlib.util import spec_from_file_location
 from urllib.request import urlopen
 
 __all__ = [
+    'import_module_from_file_location',
     'import_stdlib',
     'import_submodules',
     'reload_submodules',
