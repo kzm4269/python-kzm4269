@@ -72,7 +72,7 @@ def temp_chdir(path):
 
     Returns
     -------
-    path : path_like
+    path : str
     """
     backup = os.path.abspath(os.curdir)
     try:
@@ -83,23 +83,22 @@ def temp_chdir(path):
 
 
 @_return_fspath
-def require_dir(path, parents_only=False):
+def require_dir(dirpath, basename):
     """Make a directory and return the given path as is.
 
     Parameters
     ----------
-    path : path_like
-    parents_only : bool
+    dirpath : path_like
+    basename : path_like
 
     Returns
     -------
-    path : path_like
+    path : str
     """
-    dirname = os.path.dirname(path) if parents_only else path
-    os.makedirs(dirname, exist_ok=True)
-    if not os.path.isdir(dirname):
-        raise NotADirectoryError(dirname)
-    return path
+    os.makedirs(dirpath, exist_ok=True)
+    if not os.path.isdir(dirpath):
+        raise NotADirectoryError(dirpath)
+    return os.path.join(dirpath, basename)
 
 
 def _find(root, **kwargs):
@@ -141,7 +140,7 @@ def find(root, types=None, name=None, path=None, regex=None,
 
     Yields
     ------
-    path : path_like
+    path : str
     """
     if isinstance(name, str):
         name = name.__eq__
