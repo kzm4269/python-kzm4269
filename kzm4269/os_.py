@@ -83,7 +83,7 @@ def temp_chdir(path):
 
 
 @_return_fspath
-def require_dir(dirpath, basename):
+def require_dir(dirpath, basename=None):
     """Make a directory and return the given path as is.
 
     Parameters
@@ -98,7 +98,7 @@ def require_dir(dirpath, basename):
     os.makedirs(dirpath, exist_ok=True)
     if not os.path.isdir(dirpath):
         raise NotADirectoryError(dirpath)
-    return os.path.join(dirpath, basename)
+    return os.path.join(dirpath, basename or '')
 
 
 def _find(root, **kwargs):
